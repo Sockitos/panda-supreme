@@ -52,7 +52,7 @@
 	}
 
 	.coin {
-		width: min(16rem, 70vw);
+		width: min(16rem, calc(100vw - 6.5rem));
 		aspect-ratio: 1;
 		border-radius: 9999px;
 		perspective: 900px;

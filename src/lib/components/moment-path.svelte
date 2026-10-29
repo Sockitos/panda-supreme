@@ -3,6 +3,7 @@
 	import MomentReveal from '#lib/components/moment-reveal.svelte';
 	import { moments } from '#lib/content/moments';
 	import type { Moment } from '#lib/domain/types';
+	import { publicFile } from '#lib/public-file';
 	import { getPandaStore } from '#lib/state/panda.svelte';
 
 	let { progress }: { progress: number } = $props();
@@ -33,7 +34,9 @@
 				<span class="trail-line">
 					<span class="trail-fill" style:height={`${fillFor(0)}%`}></span>
 				</span>
-				<span class="milestone"><span>🐼</span></span>
+				<span class="milestone coin">
+					<img src={publicFile('/brand/panda-coin.png')} alt="" />
+				</span>
 			</div>
 			<article>
 				<div class="moment-meta">
@@ -179,6 +182,18 @@
 		border-color: var(--primary);
 		background: var(--primary);
 		color: var(--primary-foreground);
+	}
+
+	.milestone.coin {
+		overflow: hidden;
+		border: none;
+		background: transparent;
+	}
+
+	.milestone.coin img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.next .milestone {

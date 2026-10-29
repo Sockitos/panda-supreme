@@ -8,7 +8,10 @@
 	import MomentReveal from '#lib/components/moment-reveal.svelte';
 	import { Alert, AlertDescription, AlertTitle } from '#lib/components/ui/alert/index.js';
 	import { Toaster } from '#lib/components/ui/sonner/index.js';
+	import PandaSide from '#lib/components/panda-side.svelte';
+	import { page } from '$app/state';
 	import { PandaStore, setPandaStore } from '#lib/state/panda.svelte';
+	import { PandaPresence, setPandaPresence } from '#lib/state/panda-presence.svelte';
 	import { publicFile } from '#lib/public-file';
 	import favicon from '#lib/assets/favicon.svg';
 	import './layout.css';
@@ -16,6 +19,12 @@
 	let { children } = $props();
 	const store = new PandaStore();
 	setPandaStore(store);
+	const presence = new PandaPresence(page.route.id === '/');
+	setPandaPresence(presence);
+
+	$effect(() => {
+		presence.setOnHome(page.route.id === '/');
+	});
 
 	const pendingMoment = $derived(store.pendingMoment());
 
@@ -59,6 +68,9 @@
 		</main>
 	</div>
 	<BottomNav />
+	{#if store.ready}
+		<PandaSide />
+	{/if}
 </div>
 
 {#if !store.ready}

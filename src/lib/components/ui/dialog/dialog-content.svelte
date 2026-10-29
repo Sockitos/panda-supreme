@@ -7,6 +7,7 @@
 	import DialogPortal from './dialog-portal.svelte';
 	import type { Snippet } from 'svelte';
 	import type { ComponentProps } from 'svelte';
+	import { getPandaPresence, registerDialogPanda } from '#lib/state/panda-presence.svelte';
 
 	let {
 		ref = $bindable(null),
@@ -20,6 +21,8 @@
 		children: Snippet;
 		showCloseButton?: boolean;
 	} = $props();
+
+	const presence = getPandaPresence();
 </script>
 
 <DialogPortal {...portalProps}>
@@ -34,7 +37,11 @@
 		)}
 		{...restProps}
 	>
-		<span class="panda-peek" aria-hidden="true">🐼</span>
+		<span
+			class={['panda-peek', presence.dialogReady && 'ready']}
+			aria-hidden="true"
+			{@attach registerDialogPanda(presence)}>🐼</span
+		>
 		<div
 			class={cn(
 				'relative z-10 grid gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10',
@@ -68,28 +75,31 @@
 		pointer-events: none;
 		user-select: none;
 		transform-origin: 46% 100%;
-		transform: translateY(78%) rotate(-14deg) scale(0.7);
+		transform: translateY(12%) rotate(-8deg);
+		opacity: 0;
 		filter: drop-shadow(0 0.45rem 0.2rem oklch(0.29 0.04 155 / 0.18));
-		animation: panda-peek 760ms cubic-bezier(0.22, 1.15, 0.32, 1) 70ms both;
+	}
+
+	.panda-peek.ready {
+		opacity: 1;
+		animation: panda-peek 1.35s cubic-bezier(0.22, 0.82, 0.28, 1) 80ms both;
 	}
 
 	@keyframes panda-peek {
 		0% {
-			opacity: 0;
-			transform: translateY(82%) rotate(-16deg) scale(0.68);
-		}
-
-		22% {
 			opacity: 1;
+			transform: translateY(14%) rotate(-8deg) scale(0.98);
 		}
 
-		58% {
+		20% {
 			opacity: 1;
-			transform: translateY(-72%) rotate(10deg) scale(1.06);
+			transform: translateY(-2.15rem) rotate(-14deg) scale(0.98);
+			animation-timing-function: linear;
 		}
 
-		78% {
-			transform: translateY(-50%) rotate(-3deg) scale(0.98);
+		48% {
+			opacity: 1;
+			transform: translateY(-2.15rem) rotate(-16deg) scale(0.97);
 		}
 
 		100% {
@@ -98,8 +108,13 @@
 		}
 	}
 
+	:global([data-slot='dialog-content'][data-closed]) .panda-peek {
+		animation: none;
+		opacity: 0;
+	}
+
 	@media (prefers-reduced-motion: reduce) {
-		.panda-peek {
+		.panda-peek.ready {
 			animation: none;
 			opacity: 1;
 			transform: translateY(-74%) rotate(4deg);

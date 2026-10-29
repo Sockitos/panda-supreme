@@ -76,7 +76,7 @@
 <Dialog.Root {open} {onOpenChange}>
 	{#if selectedCoin}
 		<Dialog.Content
-			class="w-fit max-w-[calc(100%-2rem)] place-items-center gap-0 overflow-hidden p-6 sm:max-w-fit"
+			class="w-fit place-items-center gap-0 overflow-hidden p-6 sm:max-w-fit"
 		>
 			<Dialog.Title class="sr-only">Coin {selectedCoin.id}</Dialog.Title>
 			{#key selectedCoin.id}

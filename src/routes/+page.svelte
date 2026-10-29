@@ -11,8 +11,10 @@
 	import { parseCoinId } from '#lib/domain/wallet';
 	import type { Coin } from '#lib/domain/types';
 	import { getPandaStore } from '#lib/state/panda.svelte';
+	import { getPandaPresence, watchHeroPanda } from '#lib/state/panda-presence.svelte';
 
 	const store = getPandaStore();
+	const presence = getPandaPresence();
 	let scannedCoin = $state<Coin | null>(null);
 	let scanOpen = $state(false);
 	let scanDialog = $state<HTMLElement | null>(null);
@@ -96,8 +98,8 @@
 <div class="home">
 	{#if store.ready}
 		<section class="hero" aria-labelledby="home-title">
-			<div class="panda-focal" aria-hidden="true">
-				<span>🐼</span>
+			<div class="panda-focal" aria-hidden="true" {@attach watchHeroPanda(presence)}>
+				<span class:away={!presence.heroShown}>🐼</span>
 			</div>
 			<div class="hero-copy">
 				<h1 id="home-title">Your supreme adventure</h1>
@@ -134,7 +136,7 @@
 	{#if scannedCoin}
 		<Dialog.Content
 			bind:ref={scanDialog}
-			class="w-fit max-w-[calc(100%-2rem)] place-items-center gap-0 overflow-hidden p-6 sm:max-w-fit"
+			class="w-fit place-items-center gap-0 overflow-hidden p-6 sm:max-w-fit"
 			data-testid="scanned-coin-dialog"
 			onOpenAutoFocus={focusScanDialog}
 		>
@@ -164,6 +166,7 @@
 
 	.panda-focal {
 		display: grid;
+		overflow: hidden;
 		width: 10.25rem;
 		aspect-ratio: 1;
 		place-items: center;
@@ -175,6 +178,15 @@
 	.panda-focal span {
 		font-size: 6.25rem;
 		line-height: 1;
+		transform-origin: 50% 80%;
+		transition:
+			transform 480ms cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 480ms ease;
+	}
+
+	.panda-focal span.away {
+		opacity: 0;
+		transform: translateY(46%) scale(0.28) rotate(10deg);
 	}
 
 	.hero-copy {
