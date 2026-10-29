@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { ModeWatcher, setMode } from 'mode-watcher';
 	import BottomNav from '#lib/components/bottom-nav.svelte';
 	import TopBar from '#lib/components/top-bar.svelte';
@@ -36,27 +37,41 @@
 <ModeWatcher defaultMode="light" track={false} />
 <Toaster theme="light" />
 
-<TopBar />
-<div
-	class="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4 pt-[calc(4.25rem+env(safe-area-inset-top))] pb-28"
->
-	<a
-		href="#content"
-		class="sr-only rounded-lg bg-primary px-3 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
+<div inert={!store.ready}>
+	<TopBar />
+	<div
+		class="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4 pt-[calc(4.25rem+env(safe-area-inset-top))] pb-28"
 	>
-		Skip to content
-	</a>
-	{#if store.storageError}
-		<Alert variant="destructive" class="mb-4">
-			<AlertTitle>Saved coins are unavailable</AlertTitle>
-			<AlertDescription>{store.storageError}</AlertDescription>
-		</Alert>
-	{/if}
-	<main id="content" class="flex-1">
-		{@render children()}
-	</main>
+		<a
+			href="#content"
+			class="sr-only rounded-lg bg-primary px-3 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
+		>
+			Skip to content
+		</a>
+		{#if store.storageError}
+			<Alert variant="destructive" class="mb-4">
+				<AlertTitle>Saved coins are unavailable</AlertTitle>
+				<AlertDescription>{store.storageError}</AlertDescription>
+			</Alert>
+		{/if}
+		<main id="content" class="flex-1">
+			{@render children()}
+		</main>
+	</div>
+	<BottomNav />
 </div>
-<BottomNav />
+
+{#if !store.ready}
+	<div
+		class="fixed inset-0 z-[80] grid place-items-center bg-background"
+		role="status"
+		aria-live="polite"
+		out:fade={{ duration: 180 }}
+	>
+		<span class="sr-only">Opening your coins</span>
+		<span class="text-[6.25rem] leading-none" aria-hidden="true">🐼</span>
+	</div>
+{/if}
 
 {#if store.ready && pendingMoment && !store.coinCelebrationOpen}
 	<MomentReveal

@@ -9,7 +9,7 @@ export const coins: Coin[] = Array.from({ length: 50 }, (_, index) => {
 	const fileId = mediaId(id);
 	const coin: Coin = {
 		id,
-		image: `/media/coins/${fileId}.svg`
+		image: `/media/coins/${fileId}.jpg`
 	};
 	if (id % 5 === 0) {
 		coin.audio = `/media/audio/coin-${fileId}.wav`;

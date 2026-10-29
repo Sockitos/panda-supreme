@@ -57,10 +57,12 @@
 		border-radius: 9999px;
 		perspective: 900px;
 		outline: none;
+		-webkit-tap-highlight-color: transparent;
 	}
 
+	.coin:focus,
 	.coin:focus-visible {
-		box-shadow: 0 0 0 0.25rem color-mix(in oklch, var(--ring), transparent 45%);
+		outline: none;
 	}
 
 	.coin-inner {

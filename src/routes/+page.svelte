@@ -15,6 +15,7 @@
 	const store = getPandaStore();
 	let scannedCoin = $state<Coin | null>(null);
 	let scanOpen = $state(false);
+	let scanDialog = $state<HTMLElement | null>(null);
 	let processingQuery: string | null = null;
 	let scanGeneration = 0;
 
@@ -60,6 +61,13 @@
 			scannedCoin = null;
 			store.coinCelebrationOpen = false;
 		}
+	}
+
+	function focusScanDialog(event: Event): void {
+		event.preventDefault();
+		queueMicrotask(() => {
+			scanDialog?.focus({ preventScroll: true });
+		});
 	}
 
 	afterNavigate(() => {
@@ -125,8 +133,10 @@
 <Dialog.Root open={scanOpen} onOpenChange={onScanOpenChange}>
 	{#if scannedCoin}
 		<Dialog.Content
+			bind:ref={scanDialog}
 			class="w-fit max-w-[calc(100%-2rem)] place-items-center gap-0 overflow-hidden p-6 sm:max-w-fit"
 			data-testid="scanned-coin-dialog"
+			onOpenAutoFocus={focusScanDialog}
 		>
 			<CoinFireworks />
 			<Dialog.Title class="sr-only">Coin {scannedCoin.id}</Dialog.Title>

@@ -1,8 +1,9 @@
 <script lang="ts">
+	const burstStart = 700;
 	const sparks = Array.from({ length: 24 }, (_, index) => ({
 		angle: `${index * 15}deg`,
 		distance: `${7.5 + (index % 4) * 1.2}rem`,
-		delay: `${(index % 3) * 35}ms`
+		delay: `${burstStart + (index % 3) * 35}ms`
 	}));
 </script>
 
@@ -16,6 +17,7 @@
 <style>
 	.fireworks {
 		position: absolute;
+		z-index: 2;
 		inset: 48% auto auto 50%;
 		width: 0;
 		height: 0;

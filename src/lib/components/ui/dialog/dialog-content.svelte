@@ -28,31 +28,39 @@
 		bind:ref
 		data-slot="dialog-content"
 		class={cn(
-			'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%_-_2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 sm:max-w-sm',
+			'fixed top-1/2 left-1/2 z-50 w-full max-w-[calc(100%_-_2rem)] -translate-x-1/2 -translate-y-1/2 duration-100 outline-none data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 sm:max-w-sm',
 			className,
-			'overflow-visible'
+			'overflow-visible bg-transparent p-0 shadow-none ring-0'
 		)}
 		{...restProps}
 	>
 		<span class="panda-peek" aria-hidden="true">🐼</span>
-		{@render children?.()}
-		{#if showCloseButton}
-			<DialogPrimitive.Close data-slot="dialog-close">
-				{#snippet child({ props })}
-					<Button variant="ghost" class="absolute top-2 right-2" size="icon-sm" {...props}>
-						<XIcon />
-						<span class="sr-only">Close</span>
-					</Button>
-				{/snippet}
-			</DialogPrimitive.Close>
-		{/if}
+		<div
+			class={cn(
+				'relative z-10 grid gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10',
+				className,
+				'overflow-visible'
+			)}
+		>
+			{@render children?.()}
+			{#if showCloseButton}
+				<DialogPrimitive.Close data-slot="dialog-close">
+					{#snippet child({ props })}
+						<Button variant="ghost" class="absolute top-2 right-2 z-10" size="icon-sm" {...props}>
+							<XIcon />
+							<span class="sr-only">Close</span>
+						</Button>
+					{/snippet}
+				</DialogPrimitive.Close>
+			{/if}
+		</div>
 	</DialogPrimitive.Content>
 </DialogPortal>
 
 <style>
 	.panda-peek {
 		position: absolute;
-		z-index: -1;
+		z-index: 1;
 		top: 0;
 		left: 0.85rem;
 		font-size: 5rem;
@@ -86,7 +94,7 @@
 
 		100% {
 			opacity: 1;
-			transform: translateY(-58%) rotate(4deg) scale(1);
+			transform: translateY(-74%) rotate(4deg) scale(1);
 		}
 	}
 
@@ -94,7 +102,7 @@
 		.panda-peek {
 			animation: none;
 			opacity: 1;
-			transform: translateY(-58%) rotate(4deg);
+			transform: translateY(-74%) rotate(4deg);
 		}
 	}
 </style>
