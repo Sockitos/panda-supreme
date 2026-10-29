@@ -1,0 +1,1 @@
+<p>Opening home…</p>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Coin 17">
+  <circle cx="100" cy="100" r="96" fill="oklch(0.84 0.1 92)"/>
+  <circle cx="100" cy="100" r="78" fill="oklch(0.45 0.09 110)" />
+  <circle cx="100" cy="100" r="64" fill="oklch(0.96 0.02 98)"/>
+  <path d="M78 118c8-28 36-42 52-24" fill="none" stroke="oklch(0.4 0.08 150)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M86 78c10-16 18-16 24 0" fill="oklch(0.55 0.12 145)"/>
+  <text x="100" y="126" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="oklch(0.3 0.04 155)">17</text>
+</svg>
