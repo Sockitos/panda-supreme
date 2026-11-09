@@ -38,6 +38,7 @@
 	<div class="grid grid-cols-2 gap-3">
 		{#each shopItems as item (item.id)}
 			{@const affordable = store.snapshot.balance >= item.cost}
+			{@const priceLabel = item.cost === 0 ? 'Free' : coinLabel(item.cost)}
 			<Card.Root class="flex h-48 flex-col gap-0 overflow-hidden shadow-none">
 				<Card.Header
 					class="flex flex-1 flex-col items-center justify-center gap-2 p-3 pb-0 text-center"
@@ -54,7 +55,7 @@
 						data-testid="buy-{item.id}"
 						onclick={() => (purchaseId = item.id)}
 					>
-						Get · {coinLabel(item.cost)}
+						Get · {priceLabel}
 					</Button>
 				</Card.Footer>
 			</Card.Root>
@@ -72,7 +73,9 @@
 		<Dialog.Header>
 			<Dialog.Title class="font-heading text-2xl">Get {selected?.name}?</Dialog.Title>
 			<Dialog.Description class="text-base">
-				This spends {coinLabel(selected?.cost ?? 0)}. Your collection does not change.
+				{selected?.cost === 0
+					? 'This one is free. Your collection does not change.'
+					: `This spends ${coinLabel(selected?.cost ?? 0)}. Your collection does not change.`}
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>

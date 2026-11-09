@@ -3,13 +3,14 @@ import type { ShopItem } from '#lib/domain/types';
 export const shopItemEmojis: Readonly<Record<string, string>> = {
 	kiss: '💋',
 	hug: '🤗',
-	cuddle: '🐼',
+	cuddle: '🧸',
 	movie: '🎬',
-	breakfast: '🥞',
 	massage: '💆',
-	dessert: '🍰',
+	dinner: '🍝',
 	'date-night': '🌙',
-	'surprise-date': '🎁'
+	'date-day': '☀️',
+	'surprise-date': '🎁',
+	'panda-move': '🐼'
 };
 
 export const shopItems: ShopItem[] = [
@@ -17,19 +18,19 @@ export const shopItems: ShopItem[] = [
 		id: 'kiss',
 		name: 'A kiss',
 		description: 'One real kiss, whenever you ask for it.',
-		cost: 2
+		cost: 1
 	},
 	{
 		id: 'hug',
 		name: 'A long hug',
 		description: 'A hug that lasts until you let go.',
-		cost: 3
+		cost: 2
 	},
 	{
 		id: 'cuddle',
 		name: 'Cuddle session',
 		description: 'Unhurried time, close together.',
-		cost: 5
+		cost: 4
 	},
 	{
 		id: 'movie',
@@ -38,22 +39,16 @@ export const shopItems: ShopItem[] = [
 		cost: 6
 	},
 	{
-		id: 'breakfast',
-		name: 'Breakfast in bed',
-		description: 'Morning, made slowly and brought to you.',
-		cost: 8
-	},
-	{
 		id: 'massage',
 		name: 'Twenty-minute massage',
 		description: 'Hands, shoulders, and a quiet room.',
-		cost: 10
+		cost: 8
 	},
 	{
-		id: 'dessert',
-		name: 'Dessert date',
-		description: 'Something sweet, somewhere easy.',
-		cost: 12
+		id: 'dinner',
+		name: 'Dinner, cooked for you',
+		description: 'Your craving. Panda handles the kitchen.',
+		cost: 10
 	},
 	{
 		id: 'date-night',
@@ -62,10 +57,22 @@ export const shopItems: ShopItem[] = [
 		cost: 15
 	},
 	{
+		id: 'date-day',
+		name: 'Date-day choice',
+		description: 'You choose the day. Panda comes along.',
+		cost: 20
+	},
+	{
 		id: 'surprise-date',
 		name: 'Surprise date',
 		description: 'Leave the evening to Panda.',
-		cost: 20
+		cost: 25
+	},
+	{
+		id: 'panda-move',
+		name: 'Surprise supreme panda move',
+		description: 'A short cute dance, performed whenever you ask.',
+		cost: 0
 	}
 ];
 

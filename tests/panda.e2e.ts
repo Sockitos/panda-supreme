@@ -65,7 +65,7 @@ test('opens the first moment and spends coins without losing progress', async ({
 	await page.goto('/shop');
 	await page.getByTestId('buy-kiss').click();
 	await page.getByTestId('confirm-purchase').click();
-	await expect(page.getByTestId('balance')).toContainText('8');
+	await expect(page.getByTestId('balance')).toContainText('9');
 
 	await page.goto('/vouchers');
 	await page.getByTestId('redeem-voucher').click();

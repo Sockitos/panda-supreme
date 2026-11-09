@@ -37,15 +37,16 @@ describe('coin catalog', () => {
 
 	it('prices the shop rewards', () => {
 		expect(shopItems.map((item) => [item.id, item.cost])).toEqual([
-			['kiss', 2],
-			['hug', 3],
-			['cuddle', 5],
+			['kiss', 1],
+			['hug', 2],
+			['cuddle', 4],
 			['movie', 6],
-			['breakfast', 8],
-			['massage', 10],
-			['dessert', 12],
+			['massage', 8],
+			['dinner', 10],
 			['date-night', 15],
-			['surprise-date', 20]
+			['date-day', 20],
+			['surprise-date', 25],
+			['panda-move', 0]
 		]);
 	});
 });

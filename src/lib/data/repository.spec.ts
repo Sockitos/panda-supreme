@@ -35,14 +35,14 @@ describe('coin repository', () => {
 		const purchase = await purchaseItem('kiss');
 		expect(purchase.status).toBe('success');
 		if (purchase.status !== 'success') return;
-		expect(purchase.snapshot.balance).toBe(8);
+		expect(purchase.snapshot.balance).toBe(9);
 		expect(purchase.snapshot.progress).toBe(10);
 
 		const redeemed = await redeemVoucher(purchase.voucher.id);
 		expect(redeemed.status).toBe('success');
 		if (redeemed.status !== 'success') return;
 		expect(redeemed.snapshot.vouchers[0]?.redeemedAt).toBeTruthy();
-		expect(redeemed.snapshot.balance).toBe(8);
+		expect(redeemed.snapshot.balance).toBe(9);
 	});
 
 	it('rejects a second parallel scan of the same coin', async () => {
